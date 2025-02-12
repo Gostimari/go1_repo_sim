@@ -82,50 +82,7 @@ class MetricsExtractor:
 		#
 		self.file_raw = open(f'/home/duarte/noetic-sim/src/metrics_extractor/logfiles/{self.filename_raw}.csv', mode='a')
 		self.file_metrics = open(f'/home/duarte/noetic-sim/src/metrics_extractor/logfiles/{self.filename_metrics}.csv', mode='a')
-		# Subscribers
-		#self.status_sub = rospy.Subscriber("move_base/status", GoalStatusArray, self.status_callback)
-		#self.goal_sub = rospy.Subscriber("move_base/goal", MoveBaseActionGoal, self.goal_callback)
-		#self.cmd_vel_sub = rospy.Subscriber("cmd_vel", Twist, self.cmd_vel_callback)
-		#self.imu = rospy.Subscriber("trunk_imu", Imu, self.imu_callback)
-		#self.odom = rospy.Subscriber("lio_odom", Odometry, self.odom_callback)
-  
-	# Callbacks for subscribers
-	# def goal_callback(self, msg):
-    #     # Record the start time when the goal is set
-	# 	self.start_time = rospy.Time.now()
-	# 	self.goal_reached = False
-	# 	self.goal_counter += 1
-	# 	rospy.loginfo("Goal received at time: %s", self.start_time.to_sec())
-    
-	# def status_callback(self, msg):
-    #     # Check if the goal is reached
-	# 	for status in msg.status_list:
-	# 		if status.status == 3:  # Status 3 means the goal is reached
-	# 			self.end_time = rospy.Time.now()
-	# 			self.goal_reached = True
-	# 			rospy.loginfo("Goal reached at time: %s", self.end_time.to_sec())
-	# 			self.calculate_time_span()
-	# 		elif status.status in [4, 5, 6, 7, 8]:  # Statuses indicating failure
-	# 			if not self.goal_reached:
-	# 				self.failed_goals_count += 1
-	# 				rospy.loginfo("Goal failed. Total failed goals: %d", self.failed_goals_count)
-    
-	# def cmd_vel_callback(self, msg):
-    #     # Accumulate the velocities
-	# 	linear_velocity = msg.linear.x
-	# 	self.total_velocity += linear_velocity
-	# 	self.velocity_count += 1
 
-	# def calculate_mean_velocity(self):
-	# 	if self.velocity_count > 0:
-	# 		mean_velocity = self.total_velocity / self.velocity_count
-	# 		rospy.loginfo("Mean velocity: %s m/s", mean_velocity)
-
-	# def calculate_time_span(self):
-	# 	if self.start_time and self.end_time:
-	# 		time_span = self.end_time - self.start_time
-	# 		rospy.loginfo("Time span between goal setting and achieving: %s seconds", time_span.to_sec())
- 
 	def read_odom_and_goal(self):
 		"""
 		This function is responsible for receiving the navigation goal at the
