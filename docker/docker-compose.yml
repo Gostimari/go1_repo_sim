@@ -1,0 +1,65 @@
+version: "3"
+
+#Create a network that links containers
+services:
+#   #Create a container for the ROS master
+
+  #Create the Melodic Container
+  ros-melodic:
+    build:
+     context: .
+     dockerfile: melodic.Dockerfile
+    tty: true
+    stdin_open: true
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - ../catkin_ws/build:/root/catkin_ws/build
+      - ../catkin_ws/src:/root/catkin_ws/src
+      - /dev/dri:/dev/dri
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /run/user/1000/at-spi/bus:/run/user/1000/at-spi/bus:ro
+    ulimits:
+     nofile:
+       soft: 1024
+       hard: 524288
+    environment:
+      - SETUP=/root/catkin_ws/devel/setup.bash
+      - BUILDLIST= elevation_msgs traversability_mapping #Only these packages will be build
+      - ROSPACKAGE=traversability_mapping
+      - LAUNCHFILE=offline.launch
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    command: ./melodic-launch.sh
+
+  #Create the Noetic Container
+  ros-noetic:
+    build:
+      context: .
+      dockerfile: noetic.Dockerfile
+    tty: true
+    stdin_open: true
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - ../catkin_ws/src:/root/catkin_ws/src
+      - ../catkin_ws/build:/root/catkin_ws/build
+      - ../catkin_ws/src/gps_waypoint_nav/.mapviz_config:/root/.mapviz_config
+      - /dev/dri:/dev/dri
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /run/user/1000/at-spi/bus:/run/user/1000/at-spi/bus:ro
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 524288
+    environment:
+      - SETUP=/root/catkin_ws/devel/setup.bash
+      - BUILDLIST= elevation_mapping elevation_mapping_demos gps_waypoint_nav ig_lio metrics_extractor navigation_final_semfire_pilot octomap_server ros_unitree ros_numpy unitree_legged_msgs kindr kindr_ros message_logger point_cloud_io robosense_gazebo_plugins velodyne_gazebo_plugins #Only these packages will be build
+      - ROSPACKAGE= ig_lio
+      - LAUNCHFILE= noetic_main_elev.launch
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/root/go1_repo_sim/src/ros_unitree/unitree_ros/unitree_gazebo/worlds/models
+    command: ./noetic-launch.sh
