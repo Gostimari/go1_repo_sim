@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="weed6">
+    <static>1</static>
+    <link name="link">
+      
+      <visual name="weed6_1">
+        <geometry>
+          <mesh>
+            <uri>model://weed6/meshes/GC16_1.obj</uri>          	
+          </mesh>
+        </geometry>              
+        <cast_shadows>1</cast_shadows>
+      </visual>      
+        <pose>0 0 0 0 0 0</pose>       
+    </link>
+    <link name="weed6_2">
+      
+      <visual name="weed6_2">
+        <geometry>
+          <mesh>
+            <uri>model://weed6/meshes/GC16_2.obj</uri>          	
+          </mesh>
+        </geometry>              
+        <cast_shadows>1</cast_shadows>
+      </visual>
+        <pose>0.25 -0.25 0 0 0 0</pose>     
+    </link>
+    <link name="weed6_3">
+      
+      <visual name="weed6_3">
+        <geometry>
+          <mesh>
+            <uri>model://weed6/meshes/GC16_3.obj</uri>          	
+          </mesh>
+        </geometry>              
+        <cast_shadows>1</cast_shadows>
+      </visual>
+        <pose>0.25 0.25 0 0 0 0</pose>       
+    </link>
+  </model>
+
+</sdf>

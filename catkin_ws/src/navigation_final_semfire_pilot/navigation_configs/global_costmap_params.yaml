@@ -1,0 +1,26 @@
+global_costmap:
+  global_frame: map
+  robot_base_frame: base # bobcat_base
+  update_frequency: 5.0 #2.0
+  publish_frequency: 1.0
+  static_map: true
+  rolling_window: false
+  transform_tolerance: 1.0 #0.5
+  #footprint: [[1.445,-0.88], [1.445,0.88], [-1.565,0.88], [-1.565,-0.88]]
+  footprint: [[-0.25, -0.145], [-0.25, 0.145], [0.25, 0.145], [0.25, -0.145]]
+  footprint_padding: 0.1
+
+  plugins: 
+  - {name: static_layer,  type: "costmap_2d::StaticLayer"}
+  #- {name: inflation_layer,     type: "costmap_2d::InflationLayer"}
+
+
+  static_layer:
+    map_topic: /fused_costmap
+    #subscribe_to_updates: true
+    static_map: true
+    trinary_costmap: false # flag to switch between trinary costmap (unknown/free/occ) or full range costmap
+    track_unknown_space: true # flag to decide wether unknown space is treated as free or unknown
+
+  inflater_layer:
+    inflation_radius: 0.0

@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="terrain">
+  <!-- SLIGH HILL LARGE -->
+    <static>1</static>
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <heightmap>
+            <uri>model://terrain/materials/textures/heightmap_.png</uri>
+              <size>200 200 15</size>
+              <pos>0 0 0</pos>
+          </heightmap>
+        </geometry>
+        <surface>
+        	<friction>
+				  		<ode>
+							<mu>50000.000000</mu>
+							<mu2>50000.000000</mu2>
+							<fdir1>0.000000 0.000000 0.000000</fdir1>
+							<slip1>0.000000</slip1>
+							<slip2>0.000000</slip2>
+						</ode>
+					</friction>
+        </surface>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <heightmap>
+            <texture>
+              <diffuse>file://media/materials/textures/grass_diffusespecular.png</diffuse>
+              <normal>file://media/materials/textures/flat_normal.png</normal>
+              <size>20</size>
+            </texture>
+            <texture>
+              <diffuse>file://media/materials/textures/dirt_diffusespecular.png</diffuse>
+              <normal>file://media/materials/textures/flat_normal.png</normal>
+              <size>30</size>
+            </texture>
+            <texture>
+              <diffuse>file://media/materials/textures/fungus_diffusespecular.png</diffuse>
+              <normal>file://media/materials/textures/flat_normal.png</normal>
+              <size>10</size>
+            </texture>
+            <blend>
+              <min_height>5</min_height>
+              <fade_dist>5</fade_dist>
+            </blend>
+            <blend>
+              <min_height>12</min_height>
+              <fade_dist>1</fade_dist>
+            </blend>
+            <uri>model://terrain/materials/textures/heightmap_.png</uri>
+              <size>200 200 15</size>
+              <pos>0 0 0</pos>
+          </heightmap>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="weed4">
+    <static>1</static>
+    <link name="weed4_1">
+      
+      <visual name="branch">
+        <geometry>
+          <mesh>
+            <uri>model://weed4/meshes/GC09_1.obj</uri>          	
+          </mesh>
+        </geometry>              
+       
+        <cast_shadows>1</cast_shadows>
+      </visual>      
+    </link>
+    <link name="weed4_2">
+      
+      <visual name="weed4_2">
+        <geometry>
+          <mesh>
+            <uri>model://weed4/meshes/GC09_2.obj</uri>          	
+          </mesh>
+        </geometry>              
+        <cast_shadows>1</cast_shadows>
+      </visual>
+        <pose>0.15 -0.15 0 0 0 0</pose>     
+    </link>
+    <link name="weed4_3">
+      
+      <visual name="weed4_3">
+        <geometry>
+          <mesh>
+            <uri>model://weed4/meshes/GC09_3.obj</uri>          	
+          </mesh>
+        </geometry>              
+        <cast_shadows>1</cast_shadows>
+      </visual>
+        <pose>0.15 0.15 0 0 0 0</pose>       
+    </link>
+  </model>
+</sdf>

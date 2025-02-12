@@ -1,0 +1,12 @@
+obstacle_range: 3.0
+raytrace_range: 3.5
+
+footprint: [[-0.25, -0.145], [-0.25, 0.145], [0.25, 0.145], [0.25, -0.145]]
+#robot_radius: 0.105
+
+inflation_radius: 0.5
+cost_scaling_factor: 3.0
+
+map_type: costmap
+observation_sources: scan
+scan: {sensor_frame: base, data_type: PointCloud2, topic: /go1_gazebo/scan, marking: true, clearing: true}

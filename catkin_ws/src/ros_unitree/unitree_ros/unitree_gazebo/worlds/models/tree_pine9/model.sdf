@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="tree_pine9">
+    <static>1</static>
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://tree_pine9/meshes/OC59_9.obj</uri>            <scale>1 1 1.75</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="branch">
+        <geometry>
+          <mesh>
+            <uri>model://tree_pine9/meshes/OC59_9.obj</uri>              <scale>1 1 1.75</scale>
+          </mesh>
+        </geometry>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+    </link>
+  </model>
+</sdf>

@@ -1,0 +1,62 @@
+<launch>
+    <arg name="rname" default="go1"/>
+    <arg name="rviz" default="true"/>
+    <arg name="algorithm" default="octomap"/>
+    
+    <arg if="$(eval arg('rname') == '/')"  name="frame_prefix" value="" />
+    <arg unless="$(eval arg('rname') == '/')" name="frame_prefix" value="$(arg rname)/" />
+
+    <group if="$(eval algorithm == 'hector')">
+        <include file="$(find unitree_navigation)/launch/slam/hector_mapping.launch">
+            <arg name="base_frame" value="base"/>
+            <arg name="odom_frame" value="odom"/>
+            <arg name="scan_topic" value="$(arg rname)_gazebo/scan"/>
+        </include>
+
+        <!-- Calls navigation stack packages -->
+        <include file="$(find traversability_mapping)/launch/include/move_base.launch">
+        </include>    
+    </group>
+
+    <group if="$(eval algorithm == 'gmapping')">
+        <include file="$(find unitree_navigation)/launch/slam/gmapping.launch">
+            <!-- <arg name="frame_prefix" value="$(arg frame_prefix)"/> -->
+            <arg name="base_frame" value="base"/>
+            <arg name="odom_frame" value="odom"/>
+            <arg name="scan" value="$(arg rname)_gazebo/scan"/>
+        </include>
+
+        <!-- Calls navigation stack packages -->
+        <include file="$(find traversability_mapping)/launch/include/move_base.launch">
+        </include>
+    </group>
+
+    <group if="$(eval algorithm == 'octomap')">
+        <node pkg="tf" type="static_transform_publisher" name="map_to_odom_broadcaster" args="0 0 0 0 0 0 map odom 10" />
+        <!-- <node pkg="tf" type="static_transform_publisher" name="projected_map_to_odom_broadcaster" args="0 0 0 0 0 0 projected_map odom 50" />
+        <node pkg="tf" type="static_transform_publisher" name="map_to_projected_map_broadcaster" args="0 0 0 0 0 0 map projected_map 50" /> -->
+
+        <!-- Calls Octomap server packages -->
+        <include file="$(find octomap_server)/launch/octomap_mapping.launch">
+        </include>
+
+        <!-- Calls navigation stack packages -->
+            <!-- <include file="$(find traversability_mapping)/launch/include/move_base.launch"> -->
+            <include file="$(find unitree_move_base)/launch/move_base_slam.launch">
+        </include>
+
+
+        <node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
+            <param name="robot_base_frame" value="base"/>
+            <param name="costmap_topic" value="map"/>
+        </node>
+    </group>
+
+    <!-- <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find unitree_navigation)/rviz/navigation.rviz -f $(arg frame_prefix)map"
+        output="screen"/> -->
+    <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" 
+        args="-d $(find unitree_navigation)/rviz/slam.rviz"
+        output="screen"/>
+        
+</launch>

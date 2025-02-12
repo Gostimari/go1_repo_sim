@@ -1,0 +1,94 @@
+local_costmap:
+  global_frame: map
+  robot_base_frame: base # bobcat_base
+  update_frequency: 5.0
+  publish_frequency: 3.0
+  transform_tolerance: 1.0
+  static_map: false #true
+  rolling_window: true
+  width: 15
+  height: 15
+  resolution: 0.05
+  footprint: [[-0.40, -0.165], [-0.40, 0.165], [0.35, 0.165], [0.35, -0.165]]
+  footprint_padding: 0.0
+
+  # obstacle_range: 2.5 # 2.5
+  # raytrace_range: 2.5 # 2.5
+
+  origin_z: 0.0
+  origin_y: -7.5
+  origin_x: -7.5
+  z_resolution: 1
+  z_voxels: 2
+
+  plugins:
+    - {name: inflation_layer,     type: "costmap_2d::InflationLayer"}
+    #- {name: 3d_obstacles_layer,  type: "costmap_2d::ObstacleLayer"}
+    - {name: lidar_obstacles_layer,  type: "costmap_2d::ObstacleLayer"}
+    #- {name: cameras_obstacles_layer,  type: "costmap_2d::VoxelLayer"}
+    #- {name: static_layer,  type: "costmap_2d::StaticLayer"}
+
+  # 2d_obstacles_layer:
+  #   observation_sources: depth_face
+  #   depth_face: {data_type: PointCloud2,
+  #     topic: /cam1/point_cloud_face,
+  #     min_obstacle_height: 0.5,
+  #     marking: true,
+  #     clearing: true}
+
+  cameras_obstacles_layer:
+    track_unknown_space: true
+    observation_sources: depth_face depth_left depth_right scan
+    depth_face: {data_type: PointCloud2,
+      topic: /cam1/point_cloud_face,
+      min_obstacle_height: 1,
+      marking: true,
+      clearing: true}
+    depth_left: {data_type: PointCloud2,
+      topic: /cam3/point_cloud_left,
+      min_obstacle_height: 1,
+      marking: true,
+      clearing: true}
+    depth_right: {data_type: PointCloud2,
+      topic: /cam4/point_cloud_right,
+      min_obstacle_height: 1,
+      marking: true,
+      clearing: true}
+    # scan:
+    #   {
+    #     sensor_frame: rslidar,
+    #     data_type: PointCloud2,
+    #     topic: /rslidar_points,
+    #     marking: true,
+    #     clearing: true,
+    #     min_obstacle_height: 0.05,
+    #     max_obstacle_height: 1,
+    #     obstacle_range: 6.0, #if beyond this threshold, then will not mark as obstacle
+    #     raytrace_range: 2.5 #5.0 Lower this value to detect nearer obstacles with better accuracy
+    #   }
+
+  lidar_obstacles_layer:
+    observation_sources: scan
+    track_unknown_space: true
+    scan:
+      {
+        sensor_frame: rslidar,
+        data_type: PointCloud2,
+        topic: /rslidar_points,
+        marking: true,
+        clearing: true,
+        min_obstacle_height: 0.05,
+        max_obstacle_height: 1,
+        obstacle_range: 6.0, #if beyond this threshold, then will not mark as obstacle
+        raytrace_range: 1.5 #5.0 Lower this value to detect nearer obstacles with better accuracy
+      }
+
+  # static_layer:
+  #   map_topic: /elevation_map_fused_visualization/elevation_grid
+  #   #subscribe_to_updates: true
+  #   static_map: true
+  #   trinary_costmap: false # flag to switch between trinary costmap (unknown/free/occ) or full range costmap
+  #   track_unknown_space: true # flag to decide wether unknown space is treated as free or unknown
+
+  inflater_layer:
+    inflation_radius: 0.3

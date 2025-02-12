@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <include file="$(find ig_lio)/launch/lio_velodyne_Bpearl.launch" />
+
+    <include file="$(find elevation_mapping_demos)/launch/go1_elevation.launch" />
+
+    <include file="$(find gps_waypoint_nav)/launch/navigation/gps_waypoint_nav.launch" />
+
+    <node pkg="metrics_extractor" type="metrics.py" name="metrics" />
+
+</launch>

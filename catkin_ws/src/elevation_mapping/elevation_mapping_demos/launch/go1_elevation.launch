@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Publish tf 'base' as pose.-->
+    <!-- <node pkg="elevation_mapping_demos" type="tf_to_pose_publisher.py" name="waffle_pose_publisher">
+        <param name="from_frame" type="string" value="map"/>
+        <param name="to_frame" type="string" value="base"/>
+    </node> -->
+    <param name="use_sim_time" value="true" />
+    <!-- Launch elevation mapping node. -->
+    <node pkg="elevation_mapping" type="elevation_mapping" name="elevation_mapping" output="screen">
+        <rosparam command="load" file="$(find elevation_mapping_demos)/config/robots/go1.yaml"/>
+        <rosparam command="load" file="$(find elevation_mapping_demos)/config/postprocessing/postprocessor_pipeline.yaml"/>
+    </node>
+
+    <node pkg="grid_map_visualization" type="grid_map_visualization" name="elevation_map_fused_visualization" output="screen">
+   	    <param name="grid_map_topic" value="/elevation_mapping/elevation_map" />
+        <rosparam command="load" file="$(find elevation_mapping_demos)/config/visualization/occupancy.yaml" />
+    </node>
+
+    <!-- <node pkg="elevation_mapping_sim" type="occupancy_to_elevation" name="occupancy_to_elevation" output="screen" /> -->
+
+    <!-- <node pkg="elevation_mapping_sim" type="elevation_prm" name="elevation_prm" output="screen"/> -->
+
+    <include file="$(find elevation_mapping_demos)/launch/move_base.launch"/>
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find elevation_mapping_demos)/rviz/elevation_map_visualization.rviz"/> -->
+</launch>

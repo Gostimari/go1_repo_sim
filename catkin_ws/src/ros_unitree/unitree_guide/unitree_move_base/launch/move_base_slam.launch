@@ -1,0 +1,24 @@
+<launch>
+    <arg name="frame_prefix" default=""/>
+    <arg name="rname" default=""/>
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+        <rosparam file="$(find unitree_move_base)/param//slam/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find unitree_move_base)/param/slam/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find unitree_move_base)/param/slam/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find unitree_move_base)/param/slam/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find unitree_move_base)/param/slam/dwa_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find unitree_move_base)/param/slam/move_base_params.yaml" command="load" />
+
+        <!-- explicitly define frame ids for movebase -->
+        <!-- <param name="global_costmap/global_frame"                   value="map"/>
+        <param name="global_costmap/robot_base_frame"               value="base"/>
+        <param name="global_costmap/2d_obstacles_layer/scan/topic"  value="/go1_gazebo/scan"/>
+        <param name="global_costmap/3d_obstacles_layer/depth/topic" value="/cam1/point_cloud_face"/>
+        <param name="local_costmap/global_frame"                    value="odom"/>
+        <param name="local_costmap/robot_base_frame"                value="base"/>
+        <param name="local_costmap/2d_obstacles_layer/scan/topic"   value="/go1_gazebo/scan"/>
+        <param name="local_costmap/3d_obstacles_layer/depth/topic"  value="/cam1/point_cloud_face"/> -->
+    </node>
+</launch> 

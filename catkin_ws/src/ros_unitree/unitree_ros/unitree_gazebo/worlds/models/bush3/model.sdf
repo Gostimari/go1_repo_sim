@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="bush3">
+    <static>1</static>
+    <link name="link">      
+      <visual name="branch">
+        <geometry>
+          <mesh>
+            <uri>model://bush3/meshes/OC29_3.obj</uri>
+          </mesh>
+        </geometry>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+    </link>
+  </model>
+</sdf>

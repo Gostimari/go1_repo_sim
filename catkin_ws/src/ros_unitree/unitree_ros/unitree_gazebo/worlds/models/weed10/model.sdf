@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="weed10">
+    <static>1</static>
+    <link name="weed10_1">
+      
+      <visual name="weed10_1">
+        <geometry>
+          <mesh>
+            <uri>model://weed10/meshes/GC27_v1.obj</uri>          	
+          </mesh>
+        </geometry>              
+        <cast_shadows>1</cast_shadows>
+      </visual>      
+        <pose>0 0 0 0 0 0</pose>       
+    </link>
+    <link name="weed10_2">
+      
+      <visual name="weed10_2">
+        <geometry>
+          <mesh>
+            <uri>model://weed10/meshes/GC27_v2.obj</uri>          	
+          </mesh>
+        </geometry>              
+        <cast_shadows>1</cast_shadows>
+      </visual>
+        <pose>0.25 -0.25 0 0 0 0</pose>     
+    </link>
+    <link name="weed10_3">
+      
+      <visual name="weed10_3">
+        <geometry>
+          <mesh>
+            <uri>model://weed10/meshes/GC27_v3.obj</uri>          	
+          </mesh>
+        </geometry>              
+        <cast_shadows>1</cast_shadows>
+      </visual>
+        <pose>0.25 0.25 0 0 0 0</pose>       
+    </link>
+  </model>
+
+</sdf>

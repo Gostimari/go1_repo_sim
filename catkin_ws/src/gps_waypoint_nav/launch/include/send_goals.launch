@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node ns="/gps_waypoint_nav" pkg="gps_waypoint_nav" type="waypoint_nav" name="waypoint_nav" output="screen"/>
+	    <param name="/gps_waypoint_nav/coordinates_file" value="/waypoint_files/points_sim.txt" type="string" />
+  	
+</launch>
