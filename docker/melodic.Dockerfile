@@ -22,7 +22,8 @@ RUN apt-get update \
     git \
     wget \
     nano \
-    libboost-all-dev
+    libboost-all-dev \
+    packagekit-gtk3-module
 
 # Install some python packages
 RUN apt-get -y install \
@@ -46,6 +47,7 @@ RUN apt-get install -y ros-${ROS_DISTRO}-navigation \
     ros-${ROS_DISTRO}-interactive-markers \
     ros-${ROS_DISTRO}-nav-core \
     ros-${ROS_DISTRO}-laser-geometry \
+    ros-${ROS_DISTRO}-gazebo-msgs \
     yad
 
 # Clean-up

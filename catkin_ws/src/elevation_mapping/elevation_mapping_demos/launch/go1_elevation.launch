@@ -17,10 +17,6 @@
         <rosparam command="load" file="$(find elevation_mapping_demos)/config/visualization/occupancy.yaml" />
     </node>
 
-    <!-- <node pkg="elevation_mapping_sim" type="occupancy_to_elevation" name="occupancy_to_elevation" output="screen" /> -->
-
-    <!-- <node pkg="elevation_mapping_sim" type="elevation_prm" name="elevation_prm" output="screen"/> -->
-
     <include file="$(find elevation_mapping_demos)/launch/move_base.launch"/>
     <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find elevation_mapping_demos)/rviz/elevation_map_visualization.rviz"/> -->
 </launch>

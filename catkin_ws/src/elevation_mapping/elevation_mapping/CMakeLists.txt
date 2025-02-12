@@ -23,6 +23,7 @@ set(
     tf
     tf_conversions
     nav_core
+    elevation_msgs
 )
 
 find_package(catkin REQUIRED 
@@ -261,18 +262,3 @@ find_package(cmake_clang_tools QUIET)
 if(cmake_clang_tools_FOUND)
   add_default_clang_tooling()
 endif(cmake_clang_tools_FOUND)
-
-# PRM Planner
-add_executable(elevation_prm 	src/elevation_prm.cpp src/library/kdtree.c)
-add_dependencies(elevation_prm ${catkin_EXPORTED_TARGETS} elevation_msgs_gencpp)
-target_link_libraries(elevation_prm ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
-
-# Elevation Occupancy to Elevation Map Type
-add_executable(occupancy_to_elevation 	src/occupancy_to_elevation.cpp)
-add_dependencies(occupancy_to_elevation ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(occupancy_to_elevation ${catkin_LIBRARIES})
-
-
-# move_base Planner Plugin
-add_library(tm_planner_lib src/library/tm_planner.cpp)
-target_link_libraries(tm_planner_lib ${catkin_LIBRARIES})

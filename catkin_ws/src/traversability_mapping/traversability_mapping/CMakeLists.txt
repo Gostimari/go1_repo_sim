@@ -36,7 +36,6 @@ find_package(OpenCV REQUIRED QUIET)
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS elevation_msgs
   DEPENDS PCL
 )
 
@@ -65,17 +64,17 @@ target_link_libraries(traversability_filter ${catkin_LIBRARIES} ${PCL_LIBRARIES}
 
 # Mapping
 add_executable(traversability_map src/traversability_map.cpp)
-add_dependencies(traversability_map ${catkin_EXPORTED_TARGETS} elevation_msgs_gencpp)
+add_dependencies(traversability_map ${catkin_EXPORTED_TARGETS})
 target_link_libraries(traversability_map ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
 
 # PRM Planner
 add_executable(traversability_prm 	src/traversability_prm.cpp src/library/kdtree.c)
-add_dependencies(traversability_prm ${catkin_EXPORTED_TARGETS} elevation_msgs_gencpp)
+add_dependencies(traversability_prm ${catkin_EXPORTED_TARGETS})
 target_link_libraries(traversability_prm ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
 
 # Path Planner
 add_executable(traversability_path   src/traversability_path.cpp)
-add_dependencies(traversability_path ${catkin_EXPORTED_TARGETS} elevation_msgs_gencpp)
+add_dependencies(traversability_path ${catkin_EXPORTED_TARGETS})
 target_link_libraries(traversability_path ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
 
 # move_base Planner Plugin

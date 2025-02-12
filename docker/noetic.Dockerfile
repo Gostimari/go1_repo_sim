@@ -23,8 +23,9 @@ RUN apt-get update \
     vim \
     nano \
     libtbb-dev \
-    libgoogle-glog-dev
-
+    libgoogle-glog-dev \
+    packagekit-gtk3-module \
+    liblcm-dev
 
 # Install some python packages
 RUN apt-get -y install \
@@ -67,6 +68,18 @@ RUN apt-get install -y ros-${ROS_DISTRO}-pcl-ros \
     ros-${ROS_DISTRO}-nodelet \
     ros-${ROS_DISTRO}-tf \
     ros-${ROS_DISTRO}-gazebo-ros \
+    ros-${ROS_DISTRO}-gazebo-msgs \
+    ros-${ROS_DISTRO}-robot-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-controller \
+    ros-${ROS_DISTRO}-genmsg \
+    ros-${ROS_DISTRO}-realtime-tools \
+    ros-${ROS_DISTRO}-hardware-interface \
+    ros-${ROS_DISTRO}-controller-interface \
+    ros-${ROS_DISTRO}-controller-manager \
+    ros-${ROS_DISTRO}-pluginlib \
+    ros-${ROS_DISTRO}-control-toolbox \
+    ros-${ROS_DISTRO}-xacro \
     yad
 
 # Clean-up

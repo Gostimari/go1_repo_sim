@@ -46,7 +46,7 @@ include_directories(SYSTEM
 )
 
 add_executable(${PROJECT_NAME}_node 
-  src/ig_lio_sim_node
+  src/ig_lio_node
   src/pointcloud_preprocess.cpp
   src/lio.cpp
   src/voxel_map.cpp

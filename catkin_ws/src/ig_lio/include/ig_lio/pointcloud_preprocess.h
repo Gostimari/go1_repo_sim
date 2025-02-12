@@ -22,73 +22,73 @@ enum class LidarType { VELODYNE, OUSTER, HESAI, VELODYNEM1600};
 struct VelodynePointXYZIRT {
   PCL_ADD_POINT4D;
   PCL_ADD_INTENSITY;
-  uint16_t ring;
+  std::uint16_t ring;
   float time;
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 } EIGEN_ALIGN16;
 POINT_CLOUD_REGISTER_POINT_STRUCT(
     VelodynePointXYZIRT,
     (float, x, x)(float, y, y)(float, z, z)(float, intensity, intensity)(
-        uint16_t, ring, ring)(float, time, time))
+        std::uint16_t, ring, ring)(float, time, time))
 struct VelodyneM1600PointXYZIRT {
   PCL_ADD_POINT4D;
-  uint8_t intensity;
-  uint8_t ring;
-  uint32_t timestampSec;
-  uint32_t timestampNsec;
+  std::uint8_t intensity;
+  std::uint8_t ring;
+  std::uint32_t timestampSec;
+  std::uint32_t timestampNsec;
   
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 } EIGEN_ALIGN16;
 POINT_CLOUD_REGISTER_POINT_STRUCT(
     VelodyneM1600PointXYZIRT,
-    (float, x, x)(float, y, y)(float, z, z)(uint8_t, intensity, intensity)(
-        uint8_t, ring, ring)(uint32_t, timestampSec, timestampSec)(uint32_t, timestampNsec, timestampNsec))
+    (float, x, x)(float, y, y)(float, z, z)(std::uint8_t, intensity, intensity)(
+        std::uint8_t, ring, ring)(std::uint32_t, timestampSec, timestampSec)(std::uint32_t, timestampNsec, timestampNsec))
         
 
 struct HesaiPointXYZIRT {
   PCL_ADD_POINT4D;
   float intensity;
   double timestamp;
-  uint16_t ring;
+  std::uint16_t ring;
   // Add any additional fields specific to Hesai LiDAR
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 } EIGEN_ALIGN16;
 POINT_CLOUD_REGISTER_POINT_STRUCT(
     HesaiPointXYZIRT,
     (float, x, x)(float, y, y)(float, z, z)(float, intensity, intensity)(double, timestamp, timestamp)(
-        uint16_t, ring, ring))
+        std::uint16_t, ring, ring))
 
 // for Ouster LiDAR
 struct OusterPointXYZIRT {
   PCL_ADD_POINT4D;
   float intensity;
-  uint32_t t;
-  uint16_t reflectivity;
-  uint8_t ring;
-  uint16_t noise;
-  uint32_t range;
+  std::uint32_t t;
+  std::uint16_t reflectivity;
+  std::uint8_t ring;
+  std::uint16_t noise;
+  std::uint32_t range;
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 } EIGEN_ALIGN16;
 POINT_CLOUD_REGISTER_POINT_STRUCT(
     OusterPointXYZIRT,
     (float, x, x)(float, y, y)(float, z, z)(float, intensity, intensity)(
-        uint32_t, t, t)(uint16_t, reflectivity, reflectivity)(
-        uint8_t, ring, ring)(uint16_t, noise, noise)(uint32_t, range, range))
+        std::uint32_t, t, t)(std::uint16_t, reflectivity, reflectivity)(
+        std::uint8_t, ring, ring)(std::uint16_t, noise, noise)(std::uint32_t, range, range))
 // struct OusterPointXYZIRT {
 //   PCL_ADD_POINT4D;
 //   float intensity;
 //   double timestamp;
-//   uint16_t reflectivity;
-//   uint8_t ring;
-//   uint16_t noise;
-//   uint32_t range;
+//   std::uint16_t reflectivity;
+//   std::uint8_t ring;
+//   std::uint16_t noise;
+//   std::uint32_t range;
 //   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 // } EIGEN_ALIGN16;
 // POINT_CLOUD_REGISTER_POINT_STRUCT(
 //     OusterPointXYZIRT,
 //     (float, x, x)(float, y, y)(float, z, z)(float, intensity, intensity)(
-//         double, timestamp, timestamp)(uint16_t, reflectivity, reflectivity)(
-//         uint8_t, ring, ring)(uint16_t, noise, noise)(uint32_t, range, range))
+//         double, timestamp, timestamp)(std::uint16_t, reflectivity, reflectivity)(
+//         std::uint8_t, ring, ring)(std::uint16_t, noise, noise)(std::uint32_t, range, range))
 
 class PointCloudPreprocess {
  public:
@@ -141,3 +141,4 @@ class PointCloudPreprocess {
 };
 
 #endif
+

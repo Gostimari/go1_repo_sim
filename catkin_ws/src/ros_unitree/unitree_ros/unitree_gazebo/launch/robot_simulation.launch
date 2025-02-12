@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
     <arg name="wname" default="low-density-forest-30by30-new-terrain"/>    <!-- low-density-forest-30by30-new-terrain || forest-->
     <arg name="rname" default="go1"/>

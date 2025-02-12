@@ -5,7 +5,7 @@ services:
 #   #Create a container for the ROS master
 
   #Create the Melodic Container
-  ros-melodic:
+  ros-melodic-sim:
     build:
      context: .
      dockerfile: melodic.Dockerfile
@@ -14,7 +14,7 @@ services:
     privileged: true
     network_mode: "host"
     volumes:
-      - ../catkin_ws/build:/root/catkin_ws/build
+      #- ../catkin_ws/build:/root/catkin_ws/build
       - ../catkin_ws/src:/root/catkin_ws/src
       - /dev/dri:/dev/dri
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
@@ -34,7 +34,7 @@ services:
     command: ./melodic-launch.sh
 
   #Create the Noetic Container
-  ros-noetic:
+  ros-noetic-sim:
     build:
       context: .
       dockerfile: noetic.Dockerfile
@@ -44,7 +44,7 @@ services:
     network_mode: "host"
     volumes:
       - ../catkin_ws/src:/root/catkin_ws/src
-      - ../catkin_ws/build:/root/catkin_ws/build
+      #- ../catkin_ws/build:/root/catkin_ws/build
       - ../catkin_ws/src/gps_waypoint_nav/.mapviz_config:/root/.mapviz_config
       - /dev/dri:/dev/dri
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
@@ -56,10 +56,10 @@ services:
         hard: 524288
     environment:
       - SETUP=/root/catkin_ws/devel/setup.bash
-      - BUILDLIST= elevation_mapping elevation_mapping_demos gps_waypoint_nav ig_lio metrics_extractor navigation_final_semfire_pilot octomap_server ros_unitree ros_numpy unitree_legged_msgs kindr kindr_ros message_logger point_cloud_io robosense_gazebo_plugins velodyne_gazebo_plugins #Only these packages will be build
+      - BUILDLIST= elevation_mapping elevation_mapping_demos gps_waypoint_nav ig_lio metrics_extractor navigation_final_semfire_pilot octomap_server ros_unitree ros_numpy unitree_legged_msgs kindr kindr_ros message_logger point_cloud_io robosense_gazebo_plugins velodyne_gazebo_plugins elevation_msgs unitree_guide unitree_move_base unitree_navigation unitree_controller unitree_gazebo unitree_legged_control go1_description #Only these packages will be build
       - ROSPACKAGE= ig_lio
       - LAUNCHFILE= noetic_main_elev.launch
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
-      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/root/go1_repo_sim/src/ros_unitree/unitree_ros/unitree_gazebo/worlds/models
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/root/catkin_ws/src/ros_unitree/unitree_ros/unitree_gazebo/worlds/models
     command: ./noetic-launch.sh

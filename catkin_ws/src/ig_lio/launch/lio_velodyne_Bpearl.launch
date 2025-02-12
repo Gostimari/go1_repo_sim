@@ -7,7 +7,7 @@
     <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom" />
 
     <!-- Load configuration parameters -->
-    <rosparam command="load" file="$(find ig_lio_sim)/config/Bpearl.yaml" />
+    <rosparam command="load" file="$(find ig_lio)/config/Bpearl.yaml" />
 
     <!-- ig_lio node -->
     <node pkg="ig_lio" type="ig_lio_node" name="ig_lio_node" output="screen">
@@ -15,7 +15,7 @@
     	<!--remap from="lio_odom" to="offline_lio_odom"/-->
     </node>
 
-    <node pkg="ig_lio_sim" type="scan2map" name="scan2map" output="screen"> </node>
+    <node pkg="ig_lio" type="scan2map" name="scan2map" output="screen"> </node>
     
     <!-- Nodelet manager -->
     <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" output="screen" />
@@ -38,17 +38,7 @@
         <remap from="imu/data_raw" to="/imu/data_transformed" />
         <remap from="imu/data" to="/madgwick_filtered_imu"/>
     </node>
-
-    <!-- IMU Complementary Filter -->
-    <!--node pkg="imu_complementary_filter" type="complementary_filter_node" name="imu_complementary_filter" output="screen">
-        <param name="use_mag" value="false"/>
-        <param name="publish_tf" value="false"/>
-        <param name="world_frame" value="nwu"/>
-        <param name="base_link_frame" value="base"/>
-        <remap from="imu/data_raw" to="/madgwick_filtered_imu"/>
-        <remap from="imu/data" to="/filtered_imu"/>
-    </node-->
-
+    
     <!-- RViz Visualization -->
     <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ig_lio)/rviz/lio_show_mine.rviz" required="true" /> -->
 </launch>
