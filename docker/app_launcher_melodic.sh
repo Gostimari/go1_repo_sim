@@ -8,18 +8,25 @@ execute_command() {
     case $1 in
         1)
             echo "Traversability clicked"
-            roslaunch traversability_mapping offline.launch &
+            setsid roslaunch traversability_mapping offline.launch &
             COMMAND_PID=$!
             ;;
         2)
             echo "Kill button clicked"
             if [ -n "$COMMAND_PID" ]; then
-                echo "Sending SIGINT to process $COMMAND_PID"
-                kill -SIGINT "$COMMAND_PID"
+                echo "Sending SIGINT to process group $COMMAND_PID"
+                kill -SIGINT -- -$COMMAND_PID
                 COMMAND_PID=""
             else
-                echo "No process to kill."
+                echo "No specific process to kill."
             fi
+            # Kill all ROS nodes and processes
+            echo "Killing all ROS nodes and roscore..."
+            rosnode kill -a 2>/dev/null  # Gracefully kill nodes
+            sleep 1  # Allow time for nodes to terminate
+            killall -9 roscore rosmaster rosout 2>/dev/null  # Force kill core processes
+            pkill -9 -f "ros/master" 2>/dev/null   # Target rosmaster-related processes
+            pkill -9 -f "ros/launch" 2>/dev/null  # Target roslaunch processes
             ;;
         252)
             echo "Window closed by user. Exiting."

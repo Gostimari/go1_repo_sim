@@ -14,18 +14,24 @@ services:
     volumes:
       #- ../catkin_ws/build:/root/catkin_ws/build
       - ../catkin_ws/src:/root/catkin_ws/src
-      #- /dev/dri:/dev/dri
+      - /dev/dri:/dev/dri
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /run/user/1000/at-spi/bus:/run/user/1000/at-spi/bus:ro
+      - /dev/nvidia0:/dev/nvidia0
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-modeset:/dev/nvidia-modeset
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
+      - /dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools
     ulimits:
      nofile:
        soft: 1024
        hard: 524288
-    runtime: nvidia  # Add NVIDIA runtime
+    #runtime: nvidia  # Add NVIDIA runtime
     gpus:  # Correct syntax
       - device_ids: ['0']  # Use all GPUs
-        capabilities: [gpu, utility, compute, video]  # Specify capabilities
+        capabilities: [gpu, utility, compute, video, graphics] # Specify capabilities
+    ipc: "host"
     environment:
       - SETUP=/root/catkin_ws/devel/setup.bash
       - BUILDLIST= elevation_msgs traversability_mapping #Only these packages will be build
@@ -33,8 +39,9 @@ services:
       - LAUNCHFILE=offline.launch
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility,graphics
     command: ./melodic-launch.sh
 
   #Create the Noetic Container
@@ -50,18 +57,24 @@ services:
       - ../catkin_ws/src:/root/catkin_ws/src
       #- ../catkin_ws/build:/root/catkin_ws/build
       - ../catkin_ws/src/gps_waypoint_nav/.mapviz_config:/root/.mapviz_config
-      #- /dev/dri:/dev/dri
+      - /dev/dri:/dev/dri
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /run/user/1000/at-spi/bus:/run/user/1000/at-spi/bus:ro
+      - /dev/nvidia0:/dev/nvidia0
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-modeset:/dev/nvidia-modeset
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
+      - /dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools
     ulimits:
       nofile:
         soft: 1024
         hard: 524288
-    runtime: nvidia  # Add NVIDIA runtime
+    #runtime: nvidia  # Add NVIDIA runtime
     gpus:  # Correct syntax
       - device_ids: ['0']  # Use all GPUs
-        capabilities: [gpu, utility, compute, video]  # Specify capabilities
+        capabilities: [gpu, utility, compute, video, graphics] # Specify capabilities
+    ipc: "host"
     environment:
       - SETUP=/root/catkin_ws/devel/setup.bash
       - BUILDLIST= elevation_mapping elevation_mapping_demos gps_waypoint_nav ig_lio metrics_extractor navigation_final_semfire_pilot octomap_server ros_unitree ros_numpy unitree_legged_msgs kindr kindr_ros message_logger point_cloud_io robosense_gazebo_plugins velodyne_gazebo_plugins elevation_msgs unitree_guide unitree_move_base unitree_navigation unitree_controller unitree_gazebo unitree_legged_control go1_description #Only these packages will be build
@@ -70,6 +83,7 @@ services:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
       - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/root/catkin_ws/src/ros_unitree/unitree_ros/unitree_gazebo/worlds/models
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility,graphics
     command: ./noetic-launch.sh
