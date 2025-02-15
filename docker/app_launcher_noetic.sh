@@ -4,32 +4,22 @@ COMMAND_PID=""
 
 execute_command() {
     case "$1" in
-    	2)
-            echo "Gazebo clicked"
-            roslaunch unitree_gazebo robot_simulation.launch &
-            COMMAND_PID=$!
-            ;;
-        3)
-	    echo "Go1 control clicked"
-            rosrun unitree_guide junior_ctrl &
-            COMMAND_PID=$!
-            ;;
-        4)
+        2)
             echo "MEBT clicked"
             roslaunch ig_lio noetic_main_mebt.launch &
             COMMAND_PID=$!
             ;;
-        5)
+        3)
             echo "Traversability clicked"
             roslaunch ig_lio noetic_main_trav.launch &
             COMMAND_PID=$!
             ;;
-        6)
+        4)
             echo "Elevation clicked"
             roslaunch ig_lio noetic_main_elev.launch &
             COMMAND_PID=$!
             ;;
-        7)
+        5)
             echo "Kill button clicked"
             if [ -n "$COMMAND_PID" ]; then
                 echo "Sending SIGINT to process $COMMAND_PID"
@@ -54,12 +44,10 @@ while true; do
     yad --title "Roslaunch Noetic App" \
         --form \
         --width=300 --height=200 \
-        --button="Gazebo:2" \
-        --button="Go1 Control:3" \
-        --button="MEBT:4" \
-        --button="Traversability:5" \
-        --button="Elevation:6" \
-        --button="Kill:7" \
+        --button="MEBT:2" \
+        --button="Traversability:3" \
+        --button="Elevation:4" \
+        --button="Kill:5" \
         --buttons-layout=spread \
         --text="Click a button to execute a command or Kill to stop the process. If you want to launch the traversability_mapping, you need to launch it on the Roslaunch Melodic App too."
     

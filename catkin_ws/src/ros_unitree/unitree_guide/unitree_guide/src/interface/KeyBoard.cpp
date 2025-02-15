@@ -88,6 +88,19 @@ void* KeyBoard::runKeyBoard(void *arg){
 }
 
 void* KeyBoard::run(void *arg){
+    // Simulate pressing '1'
+    userCmd = UserCommand::L2_B;  // Map '1' to L2_B (passive)
+    usleep(2000000);  // Delay of 2s        
+    // Simulate pressing '2'
+    userCmd = UserCommand::L2_A;  // Map '2' to L2_A (fixed_stand)
+    usleep(3000000);  // Delay of 3s
+    // Simulate pressing '5'
+    userCmd = UserCommand::L2_Y;  // Map '5' to L2_Y (move_base)
+    usleep(50000);  // Delay of 50ms
+    return NULL;
+
+// ORIGINAL CODE
+/*
     while(1){
         FD_ZERO(&set);
         FD_SET( fileno( stdin ), &set );
@@ -104,4 +117,5 @@ void* KeyBoard::run(void *arg){
         usleep(1000);
     }
     return NULL;
+*/
 }

@@ -2,6 +2,11 @@
 
 <launch>
 
+    <include file="$(find unitree_gazebo)/launch/robot_simulation.launch" />
+    
+    <node name="junior_ctrl" pkg="unitree_guide" type="junior_ctrl" 
+          launch-prefix="bash -c 'sleep 10; $0 $@'" />
+
     <include file="$(find ig_lio)/launch/lio_velodyne_Bpearl.launch" />
 
     <include file="$(find gps_waypoint_nav)/launch/navigation/gps_waypoint_nav.launch" />
